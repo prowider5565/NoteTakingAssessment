@@ -1,0 +1,46 @@
+Test task:
+Description:
+
+Develop an asynchronous web application based on FastAPI that provides a service for managing personal notes and includes the following components:
+
+1. Note management:
+Implement CRUD operations for notes.
+Each note should contain: identifier, title, content, tags, creation date, and last modification date.
+Provide the ability to add multiple tags to one note and search for notes by tags.
+Data should be stored in a PostgreSQL/MySQL database, interaction via SQLAlchemy.
+2. Authentication and authorization:
+Implement user registration and authentication using JWT tokens.
+A user can only manage their own notes.
+Passwords should be stored encrypted (use a suitable hashing algorithm).
+
+3. Telegram bot:
+Create an asynchronous Telegram bot using aiogram, which provides the following functions:
+User authorization via Telegram (linking accounts).
+Get a list of notes.
+Create a new note.
+Search notes by tags.
+The bot must interact with your API.
+4. Docker containerization:
+Place the project in a docker container
+All services (FastAPI application, database, Telegram bot) must be launched and interact in containers.
+5. Logging and error handling:
+Implement centralized logging of user actions and application errors.
+Logs must be saved to files with date rotation.
+Provide handling of possible exceptions and errors with the return of informative messages to the user.
+6. Security:
+Configure rate limiting for the API and bot.
+Provide validation of input data on both the client and server sides.
+
+7. Optional task:
+Write unit tests for the main parts of the application using pytest or a similar tool.
+Implement a web interface for working with notes using FastAPI and the Jinja2 template engine.
+Requirements for completion:
+The code must be asynchronous and comply with Python standards.
+Use Git for version control; the commit history must reflect the stages of development.
+Provide detailed instructions on how to launch and use the project in the README.md file.
+The code must be well structured, divided into modules, and accompanied by comments.
+
+How to provide the result:
+Link to the repository with the code (GitHub, GitLab, or another).
+Screenshots of the application in operation and a link to the Telegram bot.
+README.md file with a description of the project, the technologies used, and instructions on how to launch.

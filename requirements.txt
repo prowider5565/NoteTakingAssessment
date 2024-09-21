@@ -1,0 +1,9 @@
+alembic
+aiogram
+fastapi
+pydantic
+pydantic-settings
+sqlalchemy
+python-jose
+psycopg2
+bcrypt
