@@ -26,9 +26,6 @@ All services (FastAPI application, database, Telegram bot) must be launched and 
 
 
 
-5. Logging and error handling:
-Implement centralized logging of user actions and application errors.
-Logs must be saved to files with date rotation.
 
 
 Provide handling of possible exceptions and errors with the return of informative messages to the user.
@@ -49,3 +46,30 @@ How to provide the result:
 Link to the repository with the code (GitHub, GitLab, or another).
 Screenshots of the application in operation and a link to the Telegram bot.
 README.md file with a description of the project, the technologies used, and instructions on how to launch.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5. Logging and error handling:
+Implement centralized logging of user actions and application errors.
+Logs must be saved to files with date rotation.
