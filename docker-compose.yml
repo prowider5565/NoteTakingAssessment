@@ -1,0 +1,29 @@
+version: '3.12'
+
+services:
+  web:
+    build: .
+    container_name: web
+    ports:
+      - "${PORT}:${PORT}"
+    env_file: .env
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    restart: always
+    command: uvicorn main:app --host=${HOST} --port=${PORT}
+
+  db:
+    image: postgres:15
+    container_name: db
+    env_file: .env
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres_data:
+    driver: local

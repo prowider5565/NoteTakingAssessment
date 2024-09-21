@@ -7,3 +7,4 @@ sqlalchemy
 python-jose
 psycopg2
 bcrypt
+uvicorn

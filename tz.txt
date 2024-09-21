@@ -23,9 +23,14 @@ The bot must interact with your API.
 4. Docker containerization:
 Place the project in a docker container
 All services (FastAPI application, database, Telegram bot) must be launched and interact in containers.
+
+
+
 5. Logging and error handling:
 Implement centralized logging of user actions and application errors.
 Logs must be saved to files with date rotation.
+
+
 Provide handling of possible exceptions and errors with the return of informative messages to the user.
 6. Security:
 Configure rate limiting for the API and bot.
