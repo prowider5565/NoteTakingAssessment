@@ -77,13 +77,13 @@ Start up the PostgreSQL container and the Python backend container.
 
 # Step 4: Running Database Migrations
 Once the Docker containers are running, you'll need to apply the database migrations:
-
 docker-compose exec web python manage.py migrate
-Step 5: Access the Application
+
+# Step 5: Access the Application
 After the containers are up and running, you can access the application in your browser at:
 
 http://localhost:8000
-Step 6: Stopping the Application
-To stop the running Docker containers, execute:
 
+# Step 6: Stopping the Application
+To stop the running Docker containers, execute:
 docker-compose down

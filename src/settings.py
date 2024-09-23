@@ -23,6 +23,11 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
     LOG_FILE: str = "var/app.log"
 
+    ACCESS_EXP_MINUTES: int
+    REFRESH_EXP_DAYS: int
+    ALGORITHM: str
+    SECRET_KEY: str
+
     def setup_logging(self) -> None:
         """Sets up logging configuration based on settings."""
         logging.basicConfig(
@@ -34,5 +39,15 @@ class Settings(BaseSettings):
             ],
         )
 
+    @property
+    def postgres_url(self):
+        return (
+            f"postgresql://{self.POSTGRES_USERNAME}:{self.POSTGRES_PASSWORD}"
+            f"@{self.POSTGRES_HOST}/{self.POSTGRES_NAME}"
+        )
+
     class Config:
         env_file = ".env"
+
+
+settings = Settings()

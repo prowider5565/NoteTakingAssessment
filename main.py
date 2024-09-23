@@ -1,6 +1,9 @@
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI
 
+from src.bot.config import bot, dp
+from src.settings import settings
+
 
 app = FastAPI()
 WEBHOOK_PATH = f"/webhook/{bot.token}"
@@ -16,8 +19,8 @@ async def welcome_handler():
 
 @app.on_event("startup")
 async def on_startup():
-    routers = [message_router]
-    dp.include_routers(*routers)
+    # routers = []
+    # dp.include_routers(*routers)
     await bot.set_webhook(WEBHOOK_URL)
 
 
