@@ -12,7 +12,8 @@ services:
     volumes:
       - .:/app
     restart: always
-    command: uvicorn main:app --host=${HOST} --port=${PORT}
+    command: sh -c "uvicorn main:app --host=${HOST} --port=${PORT} --reload=False"
+
 
   db:
     image: postgres:15
@@ -27,3 +28,4 @@ services:
 volumes:
   postgres_data:
     driver: local
+  

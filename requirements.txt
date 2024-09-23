@@ -9,3 +9,4 @@ psycopg2
 bcrypt
 uvicorn
 environs
+email-validator
