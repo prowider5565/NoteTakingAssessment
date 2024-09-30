@@ -10,3 +10,4 @@ bcrypt
 uvicorn
 environs
 email-validator
+redis

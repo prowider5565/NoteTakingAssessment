@@ -5,44 +5,58 @@ import environs
 from src.settings import settings
 
 
-def generate_token(payload: dict, token_type: str) -> str:
+def generate_token(payload: dict, token_type: str = None) -> dict:
     """
-    Generate a JWT token based on the provided payload and token type.
+    Generate JWT tokens based on the provided payload. If token_type is None, both access and refresh tokens are generated.
 
     Parameters:
     payload (dict): A dictionary containing the token's payload. It should include the user's information.
-    token_type (str): The type of token to generate. It can be either 'access' or 'refresh'.
+    token_type (str or None): The type of token to generate. It can be 'access', 'refresh', or None (for both).
 
     Returns:
-    str: The generated JWT token.
+    dict: A dictionary containing the generated JWT tokens.
 
     Raises:
-    ValueError: If the token_type is not 'access' or 'refresh'.
+    ValueError: If the token_type is invalid and not None.
     """
-    exp = {
+    exp_times = {
         "access": datetime.datetime.utcnow()
         + datetime.timedelta(minutes=settings.ACCESS_EXP_MINUTES),
         "refresh": datetime.datetime.utcnow()
         + datetime.timedelta(days=settings.REFRESH_EXP_DAYS),
     }
 
-    if token_type not in exp:
-        raise ValueError(f"Invalid token type: {token_type}")
-    payload["exp"] = exp[token_type]
-    token = jwt.encode(payload, secret_key, algorithm="HS256")
-    return token
+    # If token_type is provided, generate the requested token
+    if token_type:
+        if token_type not in exp_times:
+            raise ValueError(f"Invalid token type: {token_type}")
+        payload["exp"] = exp_times[token_type]
+        token = jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+        return {f"{token_type}_token": token}
+
+    # If no token_type is provided, generate both access and refresh tokens
+    tokens = {}
+    for t_type, exp_time in exp_times.items():  
+        payload["exp"] = exp_time
+        tokens[f"{t_type}_token"] = jwt.encode(
+            payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM
+        )
+
+    return tokens
 
 
-def verify_token(token: str, secret_key: str, token_type: str = "access") -> dict:
+def decode_token(token: str, token_type: str = None) -> dict:
     try:
-        payload = jwt.decode(token, secret_key, algorithms=["HS256"])
+        payload = jwt.decode(
+            token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+        )
         return payload
     except JWTError as e:
         raise JWTError(f"Token verification failed ({token_type}): {str(e)}")
 
 
 def refresh_access_token(refresh_token: str) -> str:
-    payload = verify_token(refresh_token, REFRESH_TOKEN_SECRET, token_type="refresh")
+    payload = decode_token(refresh_token, token_type="refresh")
     # Remove the exp field from the payload before generating a new access token
     if "exp" in payload:
         del payload["exp"]

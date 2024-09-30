@@ -28,6 +28,15 @@ class Settings(BaseSettings):
     ALGORITHM: str
     SECRET_KEY: str
 
+    # Redis Cache credentials
+    REDIS_HOST: str
+    REDIS_PORT: int
+
+    # Rate limiting credentials
+    RATE_LIMIT_WINDOW: int = 60
+    RATE_LIMIT_COUNT: int = 10000
+    BLOCK_DURATION: int = 60
+
     def setup_logging(self) -> None:
         """Sets up logging configuration based on settings."""
         logging.basicConfig(

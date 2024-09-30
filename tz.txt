@@ -20,34 +20,9 @@ Get a list of notes.
 Create a new note.
 Search notes by tags.
 The bot must interact with your API.
-4. Docker containerization:
-Place the project in a docker container
-All services (FastAPI application, database, Telegram bot) must be launched and interact in containers.
-
-
-
-
-
-Provide handling of possible exceptions and errors with the return of informative messages to the user.
-6. Security:
-Configure rate limiting for the API and bot.
-Provide validation of input data on both the client and server sides.
 
 7. Optional task:
-Write unit tests for the main parts of the application using pytest or a similar tool.
 Implement a web interface for working with notes using FastAPI and the Jinja2 template engine.
-Requirements for completion:
-The code must be asynchronous and comply with Python standards.
-Use Git for version control; the commit history must reflect the stages of development.
-Provide detailed instructions on how to launch and use the project in the README.md file.
-The code must be well structured, divided into modules, and accompanied by comments.
-
-How to provide the result:
-Link to the repository with the code (GitHub, GitLab, or another).
-Screenshots of the application in operation and a link to the Telegram bot.
-README.md file with a description of the project, the technologies used, and instructions on how to launch.
-
-
 
 
 
