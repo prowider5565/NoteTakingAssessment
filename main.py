@@ -1,7 +1,8 @@
-from fastapi.responses import JSONResponse
-from datetime import timedelta, datetime
 from fastapi import FastAPI, status
+from fastapi.responses import JSONResponse
+from fastapi.openapi.utils import get_openapi
 from fastapi.requests import Request
+from datetime import timedelta, datetime
 import redis
 import time
 import os
@@ -13,8 +14,17 @@ from src.logger import logger
 
 
 # Initialize Redis client
-app = FastAPI()
+app = FastAPI(
+    title="Note-taking Assessment Service",
+    description="This API manages note-taking assessments and integrates a Telegram bot.",
+    version="1.0.0",
+    docs_url="/docs",  # Swagger UI accessible at /docs
+    redoc_url=None,  # Disable ReDoc
+    openapi_url="/openapi.json",  # OpenAPI schema URL
+)
+
 app.include_router(router)
+
 WEBHOOK_PATH = f"/webhook/{bot.token}"
 WEBHOOK_URL = f"{settings.DOMAIN}{WEBHOOK_PATH}"
 redis_client = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=0)
@@ -103,3 +113,21 @@ async def bot_webhook_handler(update: dict):
 @app.get("/hello")
 async def get_hello():
     return JSONResponse({"msg": "Hello"})
+
+
+# Customizing the OpenAPI schema
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title="Note-taking Assessment Service",
+        version="1.0.0",
+        description="This is a custom OpenAPI schema for the Note-taking Assessment Service.",
+        routes=app.routes,
+    )
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+
+# Assign the custom OpenAPI schema function
+app.openapi = custom_openapi

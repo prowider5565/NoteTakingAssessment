@@ -20,7 +20,7 @@ class BaseModel(Base):
 
     __abstract__ = True
 
-    uuid = Column(UUID, default=uuid.uuid4, primary_key=True, nullable=True)
+    uuid = Column(UUID, default=uuid.uuid4, primary_key=True, nullable=False)
     created_at = Column(DateTime, nullable=True, default=func.now())
     updated_at = Column(
         DateTime, nullable=True, default=func.now(), onupdate=func.now()
