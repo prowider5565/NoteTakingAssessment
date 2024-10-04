@@ -51,7 +51,7 @@ async def register_user(user: UserScheme, db=Depends(get_db)):
 @auth_router.post("/login")
 async def login_user(login: LoginScheme, db=Depends(get_db)):
     login_details = login.dict()
-    authenticated = authenticate(**login_details)
+    authenticated = authenticate(db=db, **login_details)
     if authenticated:
         payload = {"user_id": str(authenticated.uuid)}
         token = generate_token(payload)

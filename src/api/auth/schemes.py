@@ -8,5 +8,5 @@ class UserScheme(BaseModel):
 
 
 class LoginScheme(BaseModel):
-    email: EmailStr
+    username: str
     password: str

@@ -15,7 +15,7 @@ def hash_password(password: str) -> str:
 
 
 def verify_password(password: str, hashed_password: str) -> bool:
-    return bcrypt.checkpw(password, hashed_password)
+    return bcrypt.checkpw(password.encode("utf8"), hashed_password.encode("utf8"))
 
 
 security = HTTPBearer()
@@ -60,7 +60,7 @@ async def get_current_user(
         )
 
 
-def authenticate(username, password):
+def authenticate(username, password, db):
     user = (
         db.query(User)
         .options(load_only(User.uuid, User.password))
