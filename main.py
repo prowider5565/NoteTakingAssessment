@@ -110,12 +110,7 @@ async def bot_webhook_handler(update: dict):
     await dp.feed_update(bot=bot, update=telegram_update)
 
 
-@app.get("/hello")
-async def get_hello():
-    return JSONResponse({"msg": "Hello"})
-
-
-# Customizing the OpenAPI schema
+        # Customizing the OpenAPI schema
 def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
